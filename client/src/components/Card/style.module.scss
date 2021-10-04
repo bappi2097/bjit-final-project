@@ -1,0 +1,28 @@
+@import "../../pages/Landing/assets/scss/variable";
+.card {
+    background-color: $card-background;
+    border: 1px solid $card-border;
+    padding: 1rem;
+}
+@media all and (min-width: 320px) {
+    .card {
+        padding: 0;
+    }
+}
+@media all and (min-width: 768px) {
+    .card {
+        padding: 0 10%;
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .card {
+        padding: 0 12.5%;
+    }
+}
+
+@media all and (min-width: 1440px) {
+    .card {
+        padding: 0 15%;
+    }
+}
