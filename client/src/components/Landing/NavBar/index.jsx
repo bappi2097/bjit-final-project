@@ -1,5 +1,5 @@
-import Container from "../Container";
-import Logo from "../../logo.svg";
+import Container from "../../UI/Container";
+import Logo from "../../../logo.svg";
 import classes from "./style.module.scss";
 
 const NavBar = (props) => {
@@ -20,11 +20,11 @@ const NavBar = (props) => {
 						<a href="/">About Us</a>
 					</li>
 					<li>
-						<a href="/">Sign In</a>
+						<a href="/" className={`${classes.btn} ${classes.btn_outline_secondary}`}>Sign In</a>
 					</li>
 				</ul>
 			</div>
-		</Container>
+		</Container >
 	);
 };
 

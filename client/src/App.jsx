@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import './App.css';
-import Home from './pages/Home';
+import Home from './pages/Landing/Home';
 
 function App() {
   return (

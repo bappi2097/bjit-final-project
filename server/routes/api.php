@@ -20,6 +20,12 @@ Route::get('/', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
+    Route::get('test', function () {
+        return response([
+            "text" => "this is dummy",
+            "title" => "this is also dummy"
+        ]);
+    });
 
     Route::get('email/verify/{token}', 'Api\UserController@emailVerify')->name('email-verify');
     Route::group(['prefix' => 'user'], function () {
