@@ -5,6 +5,7 @@ import Footer from "../../../components/Landing/Footer";
 import Home from ".";
 import SignUp from "../SignUp";
 import Login from "../Login";
+import ForgetPassword from "../ForgetPassword";
 const Landing = (props) => {
 
     return (
@@ -14,11 +15,14 @@ const Landing = (props) => {
                 <Route path="/" exact>
                     <Home />
                 </Route>
-                <Route path="/login">
+                <Route path="/signin">
                     <Login />
                 </Route>
                 <Route path="/signup">
                     <SignUp />
+                </Route>
+                <Route path="/forget-password">
+                    <ForgetPassword />
                 </Route>
             </Switch>
             <Footer />

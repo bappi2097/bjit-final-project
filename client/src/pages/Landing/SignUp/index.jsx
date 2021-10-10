@@ -14,17 +14,30 @@ const formReducer = (state, action) => {
                 formIsValid:
                     action.isValid &&
                     state.passwordIsValid &&
-                    state.fullNameIsValid,
+                    state.firstNameIsValid &&
+                    state.lastNameIsValid,
             };
-        case "FULLNAME_INPUT":
+        case "FIRSTNAME_INPUT":
             return {
                 ...state,
-                fullName: action.value,
-                fullNameIsValid: action.isValid,
+                firstName: action.value,
+                firstNameIsValid: action.isValid,
                 formIsValid:
                     state.emailIsValid &&
                     state.passwordIsValid &&
-                    action.isValid,
+                    action.isValid &&
+                    state.lastNameIsValid,
+            };
+        case "LASTNAME_INPUT":
+            return {
+                ...state,
+                lastName: action.value,
+                lastNameIsValid: action.isValid,
+                formIsValid:
+                    state.emailIsValid &&
+                    state.passwordIsValid &&
+                    action.isValid &&
+                    state.firstNameIsValid,
             };
         case "PASSWORD_INPUT":
             return {
@@ -34,7 +47,8 @@ const formReducer = (state, action) => {
                 formIsValid:
                     state.emailIsValid &&
                     action.isValid &&
-                    state.fullNameIsValid,
+                    state.firstNameIsValid &&
+                    state.lastNameIsValid,
             };
         default:
             return { ...state };
@@ -46,7 +60,8 @@ const initialFormData = {
     fullName: "",
     password: "",
     emailIsValid: false,
-    fullNameIsValid: false,
+    firstNameIsValid: false,
+    lastNameIsValid: false,
     passwordIsValid: false,
     formIsValid: false,
 };
@@ -56,15 +71,19 @@ const SignUp = () => {
     const history = useHistory();
 
 
-    const emailValues = (value, isValid = false) => {
+    const emailValue = (value, isValid = false) => {
         dispatchState({ type: "EMAIL_INPUT", value, isValid });
     };
 
-    const fullNameValues = (value, isValid = false) => {
+    const firstNameValue = (value, isValid = false) => {
         dispatchState({ type: "FULLNAME_INPUT", value, isValid });
     };
 
-    const passwordValues = (value, isValid = false) => {
+    const lastNameValue = (value, isValid = false) => {
+        dispatchState({ type: "FULLNAME_INPUT", value, isValid });
+    };
+
+    const passwordValue = (value, isValid = false) => {
         dispatchState({ type: "PASSWORD_INPUT", value, isValid });
     };
     const signupFormSubmitHandler = (event) => {
@@ -91,25 +110,34 @@ const SignUp = () => {
                         <h1>Sign Up</h1>
                     </div>
                     <Input
+                        type="text"
+                        id="first_name"
+                        label="First Name"
+                        inputValues={firstNameValue}
+                        validation={(value) => value.length > 2}
+                    />
+
+                    <Input
+                        type="text"
+                        id="last_name"
+                        label="Last Name"
+                        inputValues={lastNameValue}
+                        validation={(value) => value.length > 2}
+                    />
+
+                    <Input
                         type="email"
                         id="email"
                         label="Email"
-                        inputValues={emailValues}
+                        inputValues={emailValue}
                         validation={(value) => value.includes("@")}
-                    />
-                    <Input
-                        type="text"
-                        id="fullname"
-                        label="Full Name"
-                        inputValues={fullNameValues}
-                        validation={(value) => value.length > 2}
                     />
 
                     <Input
                         type="password"
                         id="password"
                         label="Password"
-                        inputValues={passwordValues}
+                        inputValues={passwordValue}
                         validation={(value) => value.length > 7}
                     />
                     <button

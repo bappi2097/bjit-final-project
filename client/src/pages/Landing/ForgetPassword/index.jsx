@@ -33,11 +33,11 @@ const initialFormData = {
     formIsValid: false,
 };
 
-const Login = () => {
+const ForgetPassword = () => {
     const [formState, dispatchState] = useReducer(formReducer, initialFormData);
     const history = useHistory();
 
-    const loginSubmitHandler = async (event) => {
+    const forgetSubmitHandler = async (event) => {
         event.preventDefault();
         const getRequest = () => {
             history.push({
@@ -51,15 +51,12 @@ const Login = () => {
         dispatchState({ type: "EMAIL_INPUT", value, isValid });
     };
 
-    const passwordValues = (value, isValid = false) => {
-        dispatchState({ type: "PASSWORD_INPUT", value, isValid });
-    };
     return (
-        <Container className={classes.login__container}>
-            <Card className={classes.login__card}>
-                <form onSubmit={loginSubmitHandler} autoComplete={'off'}>
+        <Container className={classes.forget__container}>
+            <Card className={classes.forget__card}>
+                <form onSubmit={forgetSubmitHandler} autoComplete={'off'}>
                     <div>
-                        <h1>Sign In</h1>
+                        <h1>Reset Password</h1>
                     </div>
                     <Input
                         type="email"
@@ -68,33 +65,16 @@ const Login = () => {
                         inputValues={emailValues}
                         validation={(value) => value.includes("@")}
                     />
-
-                    <Input
-                        type="password"
-                        id="password"
-                        label="Password"
-                        inputValues={passwordValues}
-                        validation={(value) => value.length > 7}
-                    />
                     <button
                         disabled={!formState.formIsValid}
                         className={`${classes.btn} ${classes.btn_primary}`}
                     >
-                        Sign In
+                        Get Reset Password Form
                     </button>
-                    <Link to="/forget-password" className={classes.forget__password}>
-                        Forget Password?
-                    </Link>
                 </form>
-                <Card className={classes.signup__div}>
-                    <p>
-                        Don't have an account?&nbsp;
-                        <Link to="/signup">Sign Up</Link>
-                    </p>
-                </Card>
             </Card>
         </Container>
     );
 };
 
-export default Login;
+export default ForgetPassword;

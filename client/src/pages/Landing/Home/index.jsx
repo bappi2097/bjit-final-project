@@ -4,6 +4,7 @@ import Header from '../../../components/Landing/Header';
 import Container from '../../../components/UI/Container';
 import Client from '../../../components/Landing/Client';
 import Showcase from '../../../components/Landing/Showcase';
+import { Link } from 'react-router-dom';
 const Home = (props) => {
     const images = [
         "https://cdn.flipsnack.com/site/images/business/discovery.gz.svg",
@@ -17,7 +18,7 @@ const Home = (props) => {
         <Fragment>
             <Header />
             <Container className={classes.create__div}>
-                <a href="/" className={`${classes.btn} ${classes.btn_primary} ${classes.create__btn}`}>Create your own site</a>
+                <Link to="/signup" className={`${classes.btn} ${classes.btn_primary}`}>Create your own site</Link>
             </Container>
             <Client images={images} />
             <Showcase />
