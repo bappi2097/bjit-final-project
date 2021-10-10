@@ -15,7 +15,16 @@ class CreatePageSection extends Migration
     {
         Schema::create('page_section', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('section_id');
+            $table->longText('contents');
+            $table->longText('design');
+            $table->softDeletes();
             $table->timestamps();
+
+            // foreign key
+            $table->foreign('page_id')->references('id')->on('pages');
+            $table->foreign('section_id')->references('id')->on('sections');
         });
     }
 

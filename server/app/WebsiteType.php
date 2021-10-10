@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WebsiteType extends Model
 {
-    use sluggable;
+    use sluggable, SoftDeletes;
 
     /**
      * fillable
@@ -15,7 +16,7 @@ class WebsiteType extends Model
      * @var array
      */
     protected $fillable = [
-        "name", "slug", "image", "content"
+        "name", "slug", "image", "contents"
     ];
 
     /**
@@ -30,5 +31,13 @@ class WebsiteType extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    /**
+     * Get the websites associated with website type.
+     */
+    public function websites()
+    {
+        return $this->hasMany(Website::class);
     }
 }

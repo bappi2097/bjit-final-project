@@ -18,7 +18,8 @@ class CreateWebsiteTypesTable extends Migration
             $table->string("name");
             $table->string("slug");
             $table->string("image")->nullable();
-            $table->longText("content")->nullable();
+            $table->longText("contents")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

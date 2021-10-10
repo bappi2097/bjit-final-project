@@ -15,13 +15,16 @@ class CreateWebsitesTable extends Migration
     {
         Schema::create('websites', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('website_type_id');
-            $table->bigInteger('theme_id');
-            $table->bigInteger('navbar_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('website_type_id');
+            $table->unsignedBigInteger('theme_id');
+            $table->unsignedBigInteger('navbar_id');
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('logo')->nullable();
+            $table->longText("contents")->nullable();
+            $table->longText("design")->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             // foreign keys

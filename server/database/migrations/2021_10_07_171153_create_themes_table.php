@@ -17,6 +17,7 @@ class CreateThemesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->longText('design')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

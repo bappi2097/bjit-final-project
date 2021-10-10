@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Theme extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that should be fillable.
      *
@@ -23,4 +26,12 @@ class Theme extends Model
     protected $casts = [
         "design" => 'array'
     ];
+
+    /**
+     * Get the websites associated with theme.
+     */
+    public function websites()
+    {
+        return $this->hasMany(Website::class);
+    }
 }
