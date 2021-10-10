@@ -1,11 +1,15 @@
 import { Fragment } from 'react';
 import './App.css';
-import Home from './pages/Landing/Home';
+import Landing from './pages/Landing/Home/Landing';
+import { BrowserRouter } from "react-router-dom";
+
 
 function App() {
   return (
     <Fragment>
-      <Home />
+      <BrowserRouter>
+        <Landing />
+      </BrowserRouter>
     </Fragment>
   );
 }

@@ -1,25 +1,40 @@
 .container {
-    padding: 0 10%;
+    padding: {
+        left: 10%;
+        right: 10%;
+    }
 }
 @media all and (min-width: 320px) {
     .container {
-        padding: 0;
+        padding: {
+            left: 0;
+            right: 0;
+        }
     }
 }
 @media all and (min-width: 768px) {
     .container {
-        padding: 0 10%;
+        padding: {
+            left: 10%;
+            right: 10%;
+        }
     }
 }
 
 @media all and (min-width: 1024px) {
     .container {
-        padding: 0 12.5%;
+        padding: {
+            left: 12.5%;
+            right: 12.5%;
+        }
     }
 }
 
 @media all and (min-width: 1440px) {
     .container {
-        padding: 0 15%;
+        padding: {
+            left: 15%;
+            right: 15%;
+        }
     }
 }
