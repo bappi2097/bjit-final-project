@@ -1,9 +1,12 @@
 import Card from "../../../components/UI/Card";
 import classes from "./style.module.scss";
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Input from "../../../components/Landing/Input";
 import Container from "../../../components/UI/Container";
+import { post } from "../../../services/api";
+import AuthContext from "../../../store/auth-context";
+import { toast } from "react-toastify";
 
 const formReducer = (state, action) => {
     switch (action.type) {
@@ -36,15 +39,32 @@ const initialFormData = {
 const Login = () => {
     const [formState, dispatchState] = useReducer(formReducer, initialFormData);
     const history = useHistory();
+    const authContext = useContext(AuthContext);
 
     const loginSubmitHandler = async (event) => {
         event.preventDefault();
-        const getRequest = () => {
-            history.push({
-                pathname: "/",
-            });
+        const credentials = {
+            email: formState.email,
+            password: formState.password
         };
-        getRequest();
+        post("user/login", credentials).then(response => {
+            const user = response.data.data.user;
+            authContext.onLogin(
+                user.id,
+                user.email,
+                user.first_name + user.last_name ? user.last_name : "",
+                user.is_admin === 1,
+                response.data.data.access_token
+            );
+            if (localStorage.getItem("isLoggedIn") === "1") {
+                toast.success(response.data.message);
+                history.push({
+                    pathname: "/dashboard",
+                });
+            }
+        }).catch(errors => {
+            toast.error(errors.data.message);
+        })
     };
 
     const emailValues = (value, isValid = false) => {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\User;
+use App\Mail\VerifyEmail;
+use App\Jobs\VerifyMailJob;
 use Illuminate\Http\Request;
 use App\Mail\ForgetPasswordEmail;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -34,13 +36,14 @@ class UserController extends Controller
 
         $data = ['access_token' => $token, 'user' => Auth::user()];
 
-        return $this->apiResponse('Success Login', $data, Response::HTTP_OK, true);
+        return $this->apiResponse('Welcome to dashboard', $data, Response::HTTP_OK, true);
     }
 
     public function register(\App\Http\Requests\RegistrationFormRequest $request)
     {
         $user = new User();
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
@@ -48,11 +51,11 @@ class UserController extends Controller
         $token = JWTAuth::attempt($credentials);
         $encodedAccessToken = base64_encode(\Str::random(30));
 
-        $url = "access_token=$encodedAccessToken";
+        $url = $encodedAccessToken;
 
-        $email = new \App\Mail\VerifyEmail($user, $url, $token);
+        $email = new VerifyEmail($user, $url, $token);
 
-        if (dispatch(new \App\Jobs\VerifyMailJob($user, $email, $url))) {
+        if (dispatch(new VerifyMailJob($user, $email, $url))) {
             $user->remember_token = $encodedAccessToken;
             $user->save();
         }
@@ -60,7 +63,7 @@ class UserController extends Controller
             'access_token' => $token,
             'user' => Auth::user()
         ];
-        return $this->apiResponse('Response successfull', $data, Response::HTTP_OK, true);
+        return $this->apiResponse('Registration successfull. Please check email to verify.', $data, Response::HTTP_OK, true);
     }
 
     public function profile()
@@ -81,15 +84,21 @@ class UserController extends Controller
         }
     }
 
-    public function emailVerify(Request $request, $token)
+    public function emailVerify(Request $request)
     {
-        $user = User::where('remember_token', $request->access_token)->first();
-        $user->markVerified();
+        $user = User::where('remember_token', $request->remember_token)->first();
         $data = [
-            'access_token' => $token,
             'user' => $user
         ];
-        return $this->apiResponse('Email verify Success', $data, Response::HTTP_OK, true);
+        if ($user->hasVerifiedEmail()) {
+            return $this->apiResponse('Your Email Already Verified', $data, Response::HTTP_OK, true);
+        }
+
+        if ($user) {
+            $user->markVerified();
+            return $this->apiResponse('Email verified Successfully', $data, Response::HTTP_OK, true);
+        }
+        return $this->apiResponse('Email does not verified', null, Response::HTTP_UNPROCESSABLE_ENTITY, false);
     }
 
     public function forgetPassword(Request $request)
@@ -103,36 +112,23 @@ class UserController extends Controller
         $token = base64_encode($user->email);
         $encodedAccessToken = base64_encode(\Str::random(30));
 
-        $url = "access_token=$encodedAccessToken";
+        $url = $encodedAccessToken;
 
-        $email = new ForgetPasswordEmail($user, $url, $token);
+        $email = new ForgetPasswordEmail($user, $token, $url);
 
         if (dispatch(new ForgetPasswordEmailJob($user, $email, $url))) {
             $user->remember_token = $encodedAccessToken;
             $user->save();
         }
 
-        return $this->apiResponse('Email Send', null, Response::HTTP_OK, true);
+        return $this->apiResponse('Please check your email', null, Response::HTTP_OK, true);
     }
 
-    public function resetPasswordForm(Request $request, $token)
+    public function resetPassword(\App\Http\Requests\ForgetPasswordFormRequest $request, $token)
     {
-        $user = User::where(['remember_token' => $request->access_token, 'email' => base64_decode($token)]);
+        $user = User::where('email', base64_decode($token));
         if (!$user->exists()) {
-            return $this->apiResponse('Please input valid Email', null, Response::HTTP_UNPROCESSABLE_ENTITY, false);
-        }
-        $user = $user->first();
-        return view('reset', [
-            "token" => $user->remember_token,
-            'email' => $user->email
-        ]);
-    }
-
-    public function resetPassword(\App\Http\Requests\ForgetPasswordFormRequest $request)
-    {
-        $user = User::where(['remember_token' => $request->access_token, 'email' => $request->email]);
-        if (!$user->exists()) {
-            return $this->apiResponse('Please input valid Email', null, Response::HTTP_UNPROCESSABLE_ENTITY, false);
+            return $this->apiResponse('Please input valid Email', base64_decode($token), Response::HTTP_UNPROCESSABLE_ENTITY, false);
         }
         $user = $user->first();
         $user->password = bcrypt($request->password);

@@ -15,7 +15,7 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('section_type_id');
+            $table->unsignedBigInteger('website_type_id');
             $table->string('name');
             $table->string('component_name');
             $table->longText('setting');
@@ -25,7 +25,7 @@ class CreateSectionsTable extends Migration
             $table->timestamps();
 
             // foreign key
-            $table->foreign('section_type_id')->references('id')->on('section_types');
+            $table->foreign('website_type_id')->references('id')->on('website_types');
         });
     }
 

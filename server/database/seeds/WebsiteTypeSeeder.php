@@ -11,6 +11,6 @@ class WebsiteTypeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\WebsiteType::class, 50)->create();
     }
 }

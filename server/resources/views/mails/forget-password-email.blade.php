@@ -38,9 +38,9 @@
                     <tr>
                         <td class="header"
                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; padding: 25px 0; text-align: center;">
-                            <a href="http://127.0.0.1:8000/"
+                            <a href="{{ env('APP_URL') }}"
                                 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; color: #bbbfc3; font-size: 19px; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 white;">
-                                Laravel
+                                {{ env('APP_NAME') ?? 'Laravel' }}
                             </a>
                         </td>
                     </tr>
@@ -58,7 +58,7 @@
                                         style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; padding: 35px;">
                                         <h1
                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; color: #3d4852; font-size: 19px; font-weight: bold; margin-top: 0; text-align: left;">
-                                            Hello!</h1>
+                                            Dear, {{ $user->full_name }} </h1>
                                         <p
                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; color: #3d4852; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">
                                             You are receiving this email because we received a password reset request
@@ -81,11 +81,12 @@
                                                                     <tr>
                                                                         <td
                                                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box;">
-                                                                            <a href="{{ url('api/v1/user/reset-password', $token) }}?{{ $redirectUrl }}"
+                                                                            <a href="{{ clientUrl('/reset-password/') . $redirectUrl }}"
                                                                                 class="button button-primary"
                                                                                 target="_blank"
-                                                                                style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #fff; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490dc; border-top: 10px solid #3490dc; border-right: 18px solid #3490dc; border-bottom: 10px solid #3490dc; border-left: 18px solid #3490dc;">Reset
-                                                                                Password</a>
+                                                                                style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #fff; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490dc; border-top: 10px solid #3490dc; border-right: 18px solid #3490dc; border-bottom: 10px solid #3490dc; border-left: 18px solid #3490dc;">
+                                                                                Reset Password
+                                                                            </a>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -117,8 +118,8 @@
                                                         If you’re having trouble clicking the "Reset Password" button,
                                                         copy and paste the URL below
                                                         into your web browser: <a
-                                                            href="{{ url('api/v1/user/reset-password', $token) }}?{{ $redirectUrl }}"
-                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; color: #3869d4;">{{ url('api/v1/user/reset-password', $token) }}?{{ $redirectUrl }}</a>
+                                                            href="{{ clientUrl('/reset-password/') . $redirectUrl }}"
+                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; box-sizing: border-box; color: #3869d4;">{{ clientUrl('/reset-password/') . $redirectUrl }}</a>
                                                     </p>
                                                 </td>
                                             </tr>

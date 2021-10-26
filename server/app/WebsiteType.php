@@ -34,6 +34,14 @@ class WebsiteType extends Model
     }
 
     /**
+     * Get sections of the website type.
+     */
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
+
+    /**
      * Get the websites associated with website type.
      */
     public function websites()

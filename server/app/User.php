@@ -22,6 +22,13 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     ];
 
     /**
+     * The attributes that are also show.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name'];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -67,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function markVerified()
+    {
+        $this->markEmailAsVerified();
     }
 
     /**

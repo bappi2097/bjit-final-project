@@ -1,0 +1,61 @@
+@import "../../../pages/Landing/assets/scss/variable";
+.form__control {
+    width: calc(100% - 5px);
+    margin: {
+        top: 20px;
+        bottom: 5px;
+    }
+    label {
+        margin: {
+            top: 10px;
+        }
+        color: black;
+        font: {
+            weight: 400;
+            size: 14px;
+        }
+    }
+    input {
+        z-index: 1;
+        width: calc(100% - 5px);
+        padding-left: 5px;
+        padding-top: 2px;
+        margin: {
+            top: 10px;
+        }
+
+        background: {
+            color: #e8f0fe;
+        }
+        font: {
+            size: 14px;
+        }
+        border: 1px solid #dbdbdb;
+        border-radius: 4px;
+        &:focus-visible,
+        &:focus,
+        &:active {
+            border: 1px solid #b1b1b1;
+            background: {
+                color: #edf2fc;
+            }
+        }
+    }
+}
+
+.invalid input {
+    border: 1px solid $danger;
+    background-color: #fddddd;
+    margin-bottom: 3px;
+}
+
+.invalid input:focus {
+    border-color: #ff8800;
+    background-color: #fbe8d2;
+}
+
+.error_text {
+    color: $danger;
+    font-size: 14px;
+    margin-bottom: 10px;
+}

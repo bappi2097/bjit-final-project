@@ -1,0 +1,65 @@
+@import "../../../pages/Landing/assets/scss/variable";
+
+.left_menu {
+    background-color: $background-ash;
+    padding: {
+        top: 10px;
+    }
+    height: calc(100vh - 150px);
+    width: 200px;
+    box-shadow: 3px -1px 19px 1px #efeeee;
+    overflow-y: scroll;
+    transition: 0.5s;
+    background: white;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    nav.animated {
+        position: relative;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul li {
+        transition: 0.3s;
+        border-left: 5px solid #fff;
+        border-bottom: 2px solid $background-ash;
+    }
+
+    ul li a {
+        text-decoration: none;
+        display: block;
+        padding: 10px 15px;
+        transition: 0.2s;
+        font-weight: 500;
+        color: #636262;
+    }
+
+    ul li a:hover {
+        color: $white;
+    }
+
+    ul li:hover {
+        border-left: 5px solid black;
+        background-color: $silver;
+    }
+
+    .active {
+        border-left: 5px solid black !important;
+    }
+
+    .active {
+        color: black !important;
+        background: #f9f9f9;
+    }
+
+    ul li a i {
+        padding-right: 7px;
+        font-size: 14px;
+    }
+}

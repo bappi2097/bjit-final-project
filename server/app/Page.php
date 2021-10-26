@@ -56,6 +56,6 @@ class Page extends Model
      */
     public function sections()
     {
-        return $this->belongsToMany(Section::class);
+        return $this->belongsToMany(Section::class)->using(PageSection::class);
     }
 }

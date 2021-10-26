@@ -16,6 +16,7 @@ class Section extends Model
     protected $fillable = [
         'name',
         'component_name',
+        "website_type_id",
         'setting',
         'contents',
         'design'
@@ -44,9 +45,9 @@ class Section extends Model
     /**
      * Get the section type wi the section.
      */
-    public function sectionType()
+    public function websiteType()
     {
-        return $this->belongsTo(SectionType::class);
+        return $this->belongsTo(WebsiteType::class);
     }
 
     /**

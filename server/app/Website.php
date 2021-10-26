@@ -15,13 +15,15 @@ class Website extends Model
      * @var array
      */
     protected $fillable = [
+        "name",
+        "slug",
+        "logo",
+        "contents",
+        "design",
         "user_id",
         "website_type_id",
         "theme_id",
-        "navbar_id",
-        "name",
-        "slug",
-        "logo"
+        "navbar_id"
     ];
 
 

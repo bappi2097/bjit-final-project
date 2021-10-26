@@ -7,7 +7,7 @@ $secondary-border: #626262;
 $info: #61a2f3;
 $danger: #ff3100;
 $warning: #fec600;
-$success: #00fd66;
+$success: #00c853;
 $success-border: #00d856;
 $background: #fafafa;
 $background-ash: rgba(#e9e9e9, 0.5);
@@ -15,6 +15,7 @@ $card-background: #fff;
 $card-border: #dbdbdb;
 $bg-primary: #035ae8;
 $text-color: #2f2f2f;
+$dark: #000;
 
 .row {
     display: flex;
@@ -38,6 +39,10 @@ $text-color: #2f2f2f;
 
 .justify_content_around {
     justify-content: space-around;
+}
+
+.center {
+    text-align: center;
 }
 
 .btn {
