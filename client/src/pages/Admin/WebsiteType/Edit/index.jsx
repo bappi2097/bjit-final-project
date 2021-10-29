@@ -140,7 +140,7 @@ const EditWebsiteType = () => {
                     id="name"
                     defaultValue={formState.name}
                     inputValues={nameChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => value.length > 1}
                 />
                 <Input
                     label="Slug"
@@ -148,7 +148,7 @@ const EditWebsiteType = () => {
                     id="slug"
                     defaultValue={formState.slug}
                     inputValues={slugChangeHandler}
-                    validation={(value) => true}
+                    validation={(value) => { const regex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/g; return regex.test(value); }}
                 />
 
                 <Textarea

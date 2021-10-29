@@ -42,6 +42,6 @@ class AddWebsiteRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException($this->apiResponse('Something went wrong!', null, Response::HTTP_UNPROCESSABLE_ENTITY, false, $validator->errors()));
+        throw new HttpResponseException($this->apiResponse('Something went wrong!', $this, Response::HTTP_UNPROCESSABLE_ENTITY, false, $validator->errors()));
     }
 }

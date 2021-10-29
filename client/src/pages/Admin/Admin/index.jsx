@@ -21,6 +21,9 @@ import EditSection from "../Section/Edit";
 import User from "../User";
 import AddUser from "../User/Add";
 import EditUser from "../User/Edit";
+import Website from "../Website";
+import AddWebsite from "../Website/Add";
+import EditWebsite from "../Website/Edit";
 
 const Admin = (props) => {
     return (
@@ -47,6 +50,15 @@ const Admin = (props) => {
                             </Route>
                             <Route path="/website-type/edit/:id">
                                 <EditWebsiteType />
+                            </Route>
+                            <Route path="/website" exact>
+                                <Website />
+                            </Route>
+                            <Route path="/website/create">
+                                <AddWebsite />
+                            </Route>
+                            <Route path="/website/edit/:id">
+                                <EditWebsite />
                             </Route>
                             <Route path="/theme" exact>
                                 <Theme />

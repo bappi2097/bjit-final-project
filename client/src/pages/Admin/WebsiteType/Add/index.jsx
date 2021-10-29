@@ -111,7 +111,7 @@ const AddWebsiteType = () => {
                     id="name"
                     defaultValue={formState.name}
                     inputValues={nameChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => value.length > 1}
                 />
 
                 <Textarea
@@ -119,7 +119,7 @@ const AddWebsiteType = () => {
                     id="contents"
                     defaultValue={formState.contents}
                     inputValues={contentsChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => true}
                     height="100px"
                 />
 

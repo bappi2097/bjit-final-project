@@ -1,0 +1,36 @@
+@import "../../../../pages/Landing/assets/scss/variable";
+.btn_primary {
+    margin: {
+        top: 10px;
+        bottom: 10px;
+    }
+    display: inline-flex;
+    align-items: center;
+}
+select {
+    height: 40px;
+    width: calc(100% - 5px);
+    padding-left: 5px;
+    padding-top: 2px;
+    margin: {
+        top: 10px;
+        bottom: 10px;
+    }
+
+    background: {
+        color: #e8f0fe;
+    }
+    font: {
+        size: 14px;
+    }
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    &:focus-visible,
+    &:focus,
+    &:active {
+        border: 1px solid #b1b1b1;
+        background: {
+            color: #edf2fc;
+        }
+    }
+}

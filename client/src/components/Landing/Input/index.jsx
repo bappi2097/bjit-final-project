@@ -8,16 +8,15 @@ const Input = (props) => {
         hasError: inputHasError,
         valueChangeHandler: inputChangeHandler,
         inputBlurHandler,
+        reset
     } = useInput(props.validation);
-    const [inputValue, setInputValue] = useState(enteredInput);
 
     useEffect(() => {
-        setInputValue(enteredInput);
         props.inputValues(enteredInput, isValid);
     }, [enteredInput, isValid]);
 
     useEffect(() => {
-        setInputValue(props.defaultValue);
+        reset(props.defaultValue);
     }, [props.defaultValue])
 
 
@@ -32,7 +31,7 @@ const Input = (props) => {
                 <input
                     type={props.type}
                     id={props.id}
-                    value={inputValue}
+                    value={enteredInput}
                     onBlur={inputBlurHandler}
                     onChange={inputChangeHandler}
                 />

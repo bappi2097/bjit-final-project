@@ -1,0 +1,13 @@
+@import "../assets/scss/variable";
+.btn_primary {
+    display: flex;
+    justify-content: center;
+    margin: {
+        top: 20px;
+        bottom: 20px;
+    }
+    padding: {
+        left: 25px;
+        right: 25px;
+    }
+}

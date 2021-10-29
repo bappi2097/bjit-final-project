@@ -7,6 +7,7 @@ import Container from "../../../components/UI/Container";
 import { post } from "../../../services/api";
 import AuthContext from "../../../store/auth-context";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const formReducer = (state, action) => {
     switch (action.type) {
@@ -57,6 +58,8 @@ const Login = () => {
                 response.data.data.access_token
             );
             if (localStorage.getItem("isLoggedIn") === "1") {
+                const token = localStorage.getItem("token");
+                axios.defaults.headers = token ? { "Authorization": "Bearer " + token } : {};
                 toast.success(response.data.message);
                 history.push({
                     pathname: "/dashboard",

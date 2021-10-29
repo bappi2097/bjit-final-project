@@ -1,0 +1,74 @@
+@import "../../Landing/assets/scss/variable";
+.datatable {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    width: 100%;
+    tr {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        text-align: left;
+        &:hover {
+            background-color: rgba(242, 242, 242, 0.5);
+        }
+        .action {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            a,
+            button {
+                padding: 5px;
+                padding-bottom: 3px;
+                border-radius: 4px;
+                margin-right: 15px;
+                color: $white;
+                cursor: pointer;
+            }
+            .show_btn {
+                background-color: $success;
+            }
+            .edit_btn {
+                background-color: $primary;
+            }
+            .delete_btn {
+                background-color: $danger;
+            }
+        }
+        th,
+        td {
+            padding: 15px;
+        }
+    }
+    .not_available {
+        td {
+            padding: 15px;
+            text-align: center;
+        }
+    }
+}
+.paginationBttns {
+    margin-top: 30px;
+    width: calc(100% - 10px);
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+
+    a {
+        padding: 10px;
+        margin: 8px;
+        border-radius: 4px;
+        border: 1px solid $primary;
+        color: $primary;
+        cursor: pointer;
+    }
+
+    a:hover {
+        color: white;
+        background-color: $primary;
+    }
+}
+
+.paginationActive a {
+    color: white;
+    background-color: $primary;
+}

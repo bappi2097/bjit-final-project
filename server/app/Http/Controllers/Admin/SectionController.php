@@ -40,6 +40,7 @@ class SectionController extends Controller
             $section->setting = $request->setting;
             $section->contents = $request->contents;
             $section->design = $request->design;
+            $section->is_navbar = $request->is_navbar ?? false;
             return $section->save();
         });
 
@@ -76,6 +77,7 @@ class SectionController extends Controller
             $section->setting = $request->setting;
             $section->contents = $request->contents;
             $section->design = $request->design;
+            $section->is_navbar = $request->is_navbar ?? false;
             return $section->save();
         });
 
@@ -103,5 +105,11 @@ class SectionController extends Controller
         }
 
         return $this->apiResponse("Something went wrong!", null, Response::HTTP_BAD_REQUEST, false);
+    }
+
+    public function getNavbar()
+    {
+        $sections = Section::where("is_navbar", 1)->get();
+        return $this->apiResponse("Successfully Section found", $sections, Response::HTTP_OK, true);
     }
 }

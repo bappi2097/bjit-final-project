@@ -1,0 +1,65 @@
+@import "../../../pages/Landing/assets/scss/variable";
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(#e9e9e9, 0.5);
+    padding: {
+        top: 3rem;
+        bottom: 3rem;
+    }
+    .left__side {
+        width: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        div {
+            margin: {
+                left: 10px;
+                right: 10px;
+            }
+            h1 {
+                margin-bottom: 15px;
+                font-size: 22px;
+            }
+            ul {
+                list-style: none;
+                li {
+                    margin: {
+                        top: 5px;
+                        bottom: 5px;
+                    }
+                    a {
+                        text-decoration: none;
+                        color: $text-color;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .right__side {
+        width: 30%;
+        text-align: right;
+        p {
+            width: calc(100% - 10px);
+            text-align: right;
+            margin: 10px 0 10px 10px;
+        }
+    }
+    hr {
+        display: block;
+        margin-top: 20px;
+        width: 100%;
+        height: 1px;
+        background-color: $silver;
+    }
+    p {
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+}

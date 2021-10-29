@@ -1,0 +1,30 @@
+@import "../../Landing/assets/scss/variable";
+.main_container {
+    display: flex;
+}
+.newsfeed__card {
+    width: 500px;
+    padding: 20px;
+    margin-top: 20px;
+    .card__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h3 {
+            width: 80%;
+        }
+        .btn {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    }
+    img {
+        padding-left: -20px;
+        padding-right: -20px;
+        width: calc(500px - 40px);
+    }
+}
+
+.btn {
+    margin-top: 10px;
+}

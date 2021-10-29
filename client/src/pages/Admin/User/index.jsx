@@ -6,6 +6,7 @@ import { MdDeleteForever, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { get, post } from "../../../services/api";
 import { toast } from "react-toastify";
 import swal from 'sweetalert';
+import userImg from "../../../assets/img/user (4).jpg";
 
 const User = () => {
     const [users, setUsers] = useState([])
@@ -58,12 +59,13 @@ const User = () => {
         displayUsers = users
             .slice(pagesVisited, pagesVisited + usersPerPage)
             .map((column, index) => {
+                const image = column.image ? process.env.REACT_APP_IMAGE_URL + column.image : userImg;
                 return (
                     <tr key={"user" + index}>
                         <td>{index + 1}</td>
                         <td>{column.full_name}</td>
                         <td>
-                            <img src={column.image} alt={column.full_name} />
+                            <img width="30" src={image} alt={column.full_name} />
                         </td>
                         <td>{column.email}</td>
                         <td>{column.is_admin ? "Admin" : "User"}</td>

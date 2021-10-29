@@ -1,0 +1,45 @@
+@import "./../../../pages/Landing/assets/scss/variable";
+.nav {
+    z-index: 2;
+    padding: {
+        top: 0.5rem;
+        bottom: 0.5rem;
+    }
+    background-color: $white;
+    position: sticky;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px 0px 4px 0px rgb(160, 160, 160);
+    .logo {
+        width: 170px;
+        img {
+            width: 100%;
+        }
+    }
+    .navbar {
+        width: calc(100% - 200px);
+        ul {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            list-style: none;
+            li {
+                margin: 0 10px;
+                a {
+                    text-decoration: none;
+                    font-weight: 500;
+                    color: black;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                .btn:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

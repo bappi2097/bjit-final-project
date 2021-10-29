@@ -1,0 +1,59 @@
+@import "../../Landing/assets/scss/variable";
+.main_container {
+    display: flex;
+    .blog_category {
+        margin-top: 20px;
+        margin-right: 20px;
+        padding: 20px;
+        width: 150px;
+        height: fit-content;
+        h4 {
+            color: $text-color;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            li {
+                background-color: $background;
+                border-radius: 2px;
+                padding: {
+                    top: 5px;
+                    bottom: 5px;
+                    left: 10px;
+                }
+                &:hover {
+                    font-weight: bold;
+                    color: $text-color;
+                    cursor: pointer;
+                    background-color: rgba($silver, 0.2);
+                }
+            }
+        }
+    }
+}
+.newsfeed__card {
+    width: 500px;
+    padding: 20px;
+    margin-top: 20px;
+    .card__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h3 {
+            width: 80%;
+        }
+        .btn {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    }
+    img {
+        padding-left: -20px;
+        padding-right: -20px;
+        width: calc(500px - 40px);
+    }
+}
+
+.btn {
+    margin-top: 10px;
+}

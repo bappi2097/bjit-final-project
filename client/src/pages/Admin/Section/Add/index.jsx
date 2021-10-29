@@ -74,13 +74,13 @@ const initialFormData = {
     websiteTypeId: "",
     name: "",
     nameIsValid: false,
-    design: "",
+    design: " ",
     designIsValid: false,
-    setting: "",
+    setting: " ",
     settingIsValid: false,
     componentName: "",
     componentNameIsValid: false,
-    contents: "",
+    contents: " ",
     contentsIsValid: false,
     formIsValid: false
 };
@@ -128,11 +128,11 @@ const AddSection = () => {
 
         post("/admin/section", formData).then(response => {
             toast.success(response.data.message);
-            console.log(response);
             history.push({
                 pathname: "/section"
             });
         }).catch(errors => {
+            console.log(errors);
             toast.error(errors.data.message);
         })
     }
@@ -172,7 +172,7 @@ const AddSection = () => {
                     id="setting"
                     defaultValue={formState.setting}
                     inputValues={settingChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => true}
                     height="100px"
                 />
 
@@ -181,7 +181,7 @@ const AddSection = () => {
                     id="contents"
                     defaultValue={formState.contents}
                     inputValues={contentsChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => true}
                     height="100px"
                 />
 
@@ -190,7 +190,7 @@ const AddSection = () => {
                     id="design"
                     defaultValue={formState.design}
                     inputValues={designChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => true}
                     height="100px"
                 />
 

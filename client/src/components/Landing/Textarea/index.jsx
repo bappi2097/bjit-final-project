@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import classes from "./style.module.scss";
 import useInput from "./use-input";
 const Textarea = (props) => {
@@ -8,16 +8,15 @@ const Textarea = (props) => {
         hasError: inputHasError,
         valueChangeHandler: inputChangeHandler,
         inputBlurHandler,
+        reset
     } = useInput(props.validation);
-    const [inputValue, setInputValue] = useState(enteredInput);
 
     useEffect(() => {
-        setInputValue(enteredInput);
         props.inputValues(enteredInput, isValid);
     }, [enteredInput, isValid]);
 
     useEffect(() => {
-        setInputValue(props.defaultValue);
+        reset(props.defaultValue);
     }, [props.defaultValue])
 
     const inputClasses = !inputHasError
@@ -43,7 +42,7 @@ const Textarea = (props) => {
                     onBlur={inputBlurHandler}
                     onChange={inputChangeHandler}
                     style={style}
-                    defaultValue={inputValue}
+                    value={enteredInput}
                 ></textarea>
             </div>
             {props.error && (

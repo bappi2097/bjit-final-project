@@ -1,10 +1,10 @@
 import Container from "../../UI/Container";
 import Logo from "../../../logo.svg";
 import classes from "./style.module.scss";
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import AuthContext from "../../../store/auth-context";
 import { useContext } from "react";
-import { toast } from "react-toastify";
 
 const NavBar = (props) => {
 	const auth = useContext(AuthContext);
@@ -37,7 +37,25 @@ const NavBar = (props) => {
 						auth.isLoggedIn &&
 						(
 							<li>
-								<Link to="/dashboard">Dashboard</Link>
+								<NavLink activeClassName={classes.active} to="/dashboard">Dashboard</NavLink>
+							</li>
+						)
+					}
+
+					{
+						(auth.isLoggedIn && !auth.isAdmin) &&
+						(
+							<li>
+								<NavLink activeClassName={classes.active} to="/blog/newsfeed">Newsfeed</NavLink>
+							</li>
+						)
+					}
+
+					{
+						(auth.isLoggedIn && !auth.isAdmin) &&
+						(
+							<li>
+								<NavLink activeClassName={classes.active} to="/blogs">Blogs</NavLink>
 							</li>
 						)
 					}

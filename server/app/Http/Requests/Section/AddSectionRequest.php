@@ -31,9 +31,9 @@ class AddSectionRequest extends FormRequest
         return [
             "name" => "required|string|min:2|max:191",
             "component_name" => "required|string|min:2|max:191",
-            "setting" => "required",
-            "contents" => "required",
-            "design" => "required"
+            "setting" => "nullable",
+            "contents" => "nullable",
+            "design" => "nullable"
         ];
     }
 

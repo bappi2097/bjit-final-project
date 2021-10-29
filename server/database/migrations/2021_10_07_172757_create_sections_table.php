@@ -21,6 +21,7 @@ class CreateSectionsTable extends Migration
             $table->longText('setting');
             $table->longText('contents');
             $table->longText('design');
+            $table->boolean('is_navbar')->default(false);
             $table->softDeletes();
             $table->timestamps();
 

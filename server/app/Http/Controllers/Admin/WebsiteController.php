@@ -21,7 +21,7 @@ class WebsiteController extends Controller
      */
     public function index()
     {
-        $websites = Website::latest()->get();
+        $websites = Website::with(["user", "websiteType", "theme", "navbar"])->latest()->get();
         return $this->apiResponse("All Website Fetched", $websites, Response::HTTP_OK, true);
     }
 
@@ -62,6 +62,7 @@ class WebsiteController extends Controller
      */
     public function show(Website $website)
     {
+        $website->loadMissing(["user", "websiteType", "theme", "navbar"]);
         return $this->apiResponse("Successfully website found", $website, Response::HTTP_OK, true);
     }
 
@@ -113,8 +114,20 @@ class WebsiteController extends Controller
             return $website->delete();
         });
         if ($isDeleted) {
-            return $this->apiResponse("Successfully website deleted", null, Response::HTTP_OK, true);
+            return
+                $this->apiResponse("Successfully website deleted", null, Response::HTTP_OK, true);
         }
         return $this->apiResponse("Something went wrong!", null, Response::HTTP_BAD_REQUEST, false);
+    }
+
+    public function has()
+    {
+        $data["status"] = false;
+        if (auth()->user()->hasWebsite()) {
+            $data["website"] = auth()->user()->website;
+            $data["status"] = true;
+            return $this->apiResponse("You have a website", $data, Response::HTTP_OK, true);
+        }
+        return $this->apiResponse("You don't have a website", $data, Response::HTTP_OK, true);
     }
 }

@@ -1,5 +1,4 @@
-import axios from "axios"
-
+import axios from "axios";
 axios.defaults.baseURL = process.env.REACT_APP_BASE_API_URL;
 const token = localStorage.getItem("token");
 axios.defaults.headers = token ? {"Authorization" : "Bearer "+token} : {};

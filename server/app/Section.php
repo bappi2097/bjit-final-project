@@ -19,7 +19,8 @@ class Section extends Model
         "website_type_id",
         'setting',
         'contents',
-        'design'
+        'design',
+        'is_navbar'
     ];
 
     /**
