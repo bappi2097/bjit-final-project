@@ -55,12 +55,12 @@ const Landing = (props) => {
                     <VerifyEmail />
                 </Route>}
 
-                <Route path="/dashboard">
+                {auth.isLoggedIn && <Route path="/dashboard">
                     <Dashboard />
-                </Route>
-                <Route path="/builder">
+                </Route>}
+                {auth.isLoggedIn && <Route path="/builder">
                     <Builder />
-                </Route>
+                </Route>}
 
                 {/* <Route path="/Page" exact>
                                 <Page />
@@ -71,45 +71,45 @@ const Landing = (props) => {
                             <Route path="/Page/edit/:id">
                                 <EditPage />
                             </Route> */}
-                <Route path="/section" exact>
+                {auth.isLoggedIn && <Route path="/section" exact>
                     <Section />
-                </Route>
-                <Route path="/section/create">
+                </Route>}
+                {auth.isLoggedIn && <Route path="/section/create">
                     <AddSection />
-                </Route>
-                <Route path="/section/edit/:id">
+                </Route>}
+                {auth.isLoggedIn && <Route path="/section/edit/:id">
                     <EditSection />
-                </Route>
-                <Route path="/blog/newsfeed">
+                </Route>}
+                {auth.isLoggedIn && <Route path="/blog/newsfeed">
                     <NewsFeed />
-                </Route>
+                </Route>}
 
-                <Route path="/blog/category" exact>
+                {auth.isLoggedIn && <Route path="/blog/category" exact>
                     <Category />
-                </Route>
+                </Route>}
 
-                <Route path="/blog/category/create" exact>
+                {auth.isLoggedIn && <Route path="/blog/category/create" exact>
                     <AddCategory />
-                </Route>
+                </Route>}
 
-                <Route path="/blog/category/edit/:id" exact>
+                {auth.isLoggedIn && <Route path="/blog/category/edit/:id" exact>
                     <EditCategory />
-                </Route>
+                </Route>}
 
-                <Route path="/blog/post/create" exact>
+                {auth.isLoggedIn && <Route path="/blog/post/create" exact>
                     <AddPost />
-                </Route>
+                </Route>}
 
-                <Route path="/blog/post/edit/:id" exact>
+                {auth.isLoggedIn && <Route path="/blog/post/edit/:id" exact>
                     <EditPost />
-                </Route>
-                <Route path="/blog/single/:slug" exact>
+                </Route>}
+                {auth.isLoggedIn && <Route path="/blog/single/:slug" exact>
                     <Details />
-                </Route>
+                </Route>}
 
-                <Route path="/blogs" exact>
+                {auth.isLoggedIn && <Route path="/blogs" exact>
                     <Blogs />
-                </Route>
+                </Route>}
 
                 <Route path="*">
                     <PageNotFound />

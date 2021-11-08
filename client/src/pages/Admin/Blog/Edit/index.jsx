@@ -47,6 +47,11 @@ const formReducer = (state, action) => {
                 ...state,
                 blogCategoryId: action.value,
             };
+        case "IMAGE_URL":
+            return {
+                ...state,
+                imageUrl: action.value,
+            };
         case "CLEAR_FORM": {
             return {
                 name: "",
@@ -70,22 +75,33 @@ const initialFormData = {
     contentsIsValid: false,
     image: "",
     imageIsValid: false,
+    ImageUrl: "",
     formIsValid: false
 };
 
-const AddPost = () => {
+const EditPost = () => {
     const [formState, dispatchState] = useReducer(formReducer, initialFormData);
     const history = useHistory();
+    const { id } = useParams();
     const [blogCategoriesData, setBlogCategories] = useState([]);
 
     useEffect(() => {
-        get("/user/blog-category").then(response => {
+        get("/admin/blog-category").then(response => {
             setBlogCategories(response.data.data);
         }).catch(error => {
-            console.log(error);
             toast.error(error.data.message);
         });
     }, []);
+
+    useEffect(() => {
+        get("/admin/blog-post/" + id).then(response => {
+            dispatchState({ type: "NAME_INPUT", value: response.data.data.title, isValid: true });
+            dispatchState({ type: "IMAGE_URL", value: process.env.REACT_APP_IMAGE_URL + response.data.data.image, isValid: true });
+            dispatchState({ type: "SUMMERY_INPUT", value: response.data.data.summery, isValid: true });
+            dispatchState({ type: "BLOG_CATEGORY_INPUT", value: response.data.data.blog_category_id, isValid: true });
+            dispatchState({ type: "CONTENTS_INPUT", value: response.data.data.contents, isValid: true });
+        })
+    }, [])
 
 
 
@@ -100,7 +116,6 @@ const AddPost = () => {
         dispatchState({ type: "CONTENTS_INPUT", value, isValid });
     }
     const websiteTypeChangeHandler = (value, isValid = true) => {
-        console.log(value.target.value);
         dispatchState({ type: "BLOG_CATEGORY_INPUT", value: value.target.value });
     }
     const imageChangeHandler = (value, isValid = false) => {
@@ -109,24 +124,24 @@ const AddPost = () => {
     const formSubmitHandler = (event) => {
         event.preventDefault();
         const formData = new FormData();
+        formData.append("_method", "PUT");
         formData.append("title", formState.name);
         formData.append("image", formState.image);
         formData.append("blog_category_id", formState.blogCategoryId);
         formData.append("summery", formState.summery);
         formData.append("contents", formState.contents);
-        console.log(formState);
-        post("/user/blog-post", formData).then(response => {
+        post("/admin/blog-post/" + id, formData).then(response => {
             toast.success(response.data.message);
-            history.push({
-                pathname: "/blog/newsfeed"
-            });
+            // history.push({
+            //     pathname: "/website"
+            // });
         }).catch(errors => {
             toast.error(errors.data.message);
         });
     }
     return (
         <Card>
-            <Link className={`${classes.btn} ${classes.btn_primary}`} to={`/blog/newsfeed`}><MdOutlineArrowBack />&nbsp;Back</Link>
+            <Link className={`${classes.btn} ${classes.btn_primary}`} to={`/blog`}><MdOutlineArrowBack />&nbsp;Back</Link>
             <form onSubmit={formSubmitHandler}>
                 <ImageInput
                     width="100px"
@@ -135,9 +150,10 @@ const AddPost = () => {
                     onImageFile={imageChangeHandler}
                     label="Input Logo"
                     fresh={formState.imageFresh}
+                    image={formState.imageUrl}
                 />
                 <Input
-                    label="Name"
+                    label="Title"
                     type="text"
                     id="name"
                     defaultValue={formState.name}
@@ -145,7 +161,7 @@ const AddPost = () => {
                     validation={(value) => value.length > 5}
                 />
                 <label>Website Type</label>
-                <select onChange={websiteTypeChangeHandler}>
+                <select onChange={websiteTypeChangeHandler} defaultValue={formState.blogCategoryId}>
                     <option>Choose</option>
                     {blogCategoriesData && blogCategoriesData.map(column => {
                         return (
@@ -159,7 +175,7 @@ const AddPost = () => {
                     id="contents"
                     defaultValue={formState.contents}
                     inputValues={contentsChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => true}
                     height="100px"
                 />
 
@@ -168,7 +184,7 @@ const AddPost = () => {
                     id="summery"
                     defaultValue={formState.summery}
                     inputValues={summeryChangeHandler}
-                    validation={(value) => value.length > 5}
+                    validation={(value) => true}
                     height="100px"
                 />
 
@@ -178,4 +194,4 @@ const AddPost = () => {
     )
 }
 
-export default AddPost;
+export default EditPost;

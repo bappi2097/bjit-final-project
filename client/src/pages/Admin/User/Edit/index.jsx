@@ -143,7 +143,7 @@ const EditUser = () => {
             dispatchState({ type: "FIRST_NAME_INPUT", value: response.data.data.first_name, isValid: true });
             dispatchState({ type: "LAST_NAME_INPUT", value: response.data.data.last_name, isValid: true });
             dispatchState({ type: "EMAIL_INPUT", value: response.data.data.email, isValid: true });
-            dispatchState({ type: "IMAGE_URL_INPUT", value: response.data.data.image, isValid: true });
+            dispatchState({ type: "IMAGE_URL_INPUT", value: (response.data.data.image ? process.env.REACT_APP_IMAGE_URL + response.data.data.image : null), isValid: true });
             dispatchState({ type: "IS_ADMIN_INPUT", value: response.data.data.is_admin, isValid: true });
         })
     }, [])

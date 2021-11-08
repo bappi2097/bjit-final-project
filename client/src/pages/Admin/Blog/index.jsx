@@ -6,22 +6,20 @@ import { MdDeleteForever, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { get, post } from "../../../services/api";
 import { toast } from "react-toastify";
 import swal from 'sweetalert';
-import userImg from "../../../assets/img/user (4).jpg";
 
-const User = () => {
-    const [users, setUsers] = useState([])
+const Blog = () => {
+    const [websiteTypes, setWebsiteTypes] = useState([])
     const [pageNumber, setPageNumber] = useState(0);
     const [reload, setReload] = useState(0);
     const usersPerPage = 10;
     const pagesVisited = pageNumber * usersPerPage;
 
-    var displayUsers = [];
+    var displayWebsiteTypes = [];
     var pageCount = 0;
 
     useEffect(() => {
-        get("admin/user").then(response => {
-            console.log(response);
-            setUsers(response.data.data);
+        get("admin/blog-post").then(response => {
+            setWebsiteTypes(response.data.data);
         }).catch(errors => {
             console.log(errors);
         });
@@ -40,7 +38,7 @@ const User = () => {
                 if (willDelete) {
                     const formData = new FormData();
                     formData.append("_method", "DELETE");
-                    post("/admin/user/" + id, formData).then(response => {
+                    post("/admin/blog-post/" + id, formData).then(response => {
                         swal(response.data.message, {
                             icon: "success",
                         });
@@ -54,24 +52,21 @@ const User = () => {
             });
     }
 
-    if (users) {
-        pageCount = Math.ceil(users.length / usersPerPage);
-        displayUsers = users
+    if (websiteTypes) {
+        pageCount = Math.ceil(websiteTypes.length / usersPerPage);
+        displayWebsiteTypes = websiteTypes
             .slice(pagesVisited, pagesVisited + usersPerPage)
             .map((column, index) => {
-                const image = column.image ? process.env.REACT_APP_IMAGE_URL + column.image : userImg;
                 return (
-                    <tr key={"user" + index}>
+                    <tr key={"blog-post-type" + index}>
                         <td>{index + 1}</td>
-                        <td>{column.full_name}</td>
+                        <td>{column.title}</td>
                         <td>
-                            <img width="30" src={image} alt={column.full_name} />
+                            <img width={40} src={process.env.REACT_APP_IMAGE_URL + column.image} alt={column.title} />
                         </td>
-                        <td>{column.email}</td>
-                        <td>{column.is_admin ? "Admin" : "User"}</td>
+                        <td style={{ width: "300px" }}>{column.summery}</td>
                         <td className={classes.action}>
-                            <Link className={classes.show_btn} to={"/user/edit/" + column.id}><MdRemoveRedEye /></Link>
-                            <Link className={classes.edit_btn} to={"/user/edit/" + column.id}><MdEdit /></Link>
+                            <Link className={classes.edit_btn} to={"/blog/edit/" + column.id}><MdEdit /></Link>
                             <form onSubmit={(e) => { deleteHandler(e, column.id) }}>
                                 <button className={classes.delete_btn}><MdDeleteForever /></button>
                             </form>
@@ -89,20 +84,18 @@ const User = () => {
 
     return (
         <div>
-            {/* <Link className={`${classes.btn} ${classes.btn_primary}`} to="/user/create">Add Type</Link> */}
             <table className={classes.datatable}>
                 <thead>
                     <tr>
                         <th>SL.</th>
-                        <th>Name</th>
+                        <th>Title</th>
                         <th>Image</th>
-                        <th>Email</th>
-                        <th>Status</th>
+                        <th>Summery</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {displayUsers ? displayUsers : (
+                    {displayWebsiteTypes ? displayWebsiteTypes : (
                         <tr className={classes.not_available}>
                             <td colSpan="4">No data available</td>
                         </tr>
@@ -124,4 +117,4 @@ const User = () => {
     )
 }
 
-export default User;
+export default Blog;

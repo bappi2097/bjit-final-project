@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import classes from "./style.module.scss";
 import { AiFillHome, AiFillCodepenSquare } from "react-icons/ai";
+import { MdContentPaste } from "react-icons/md"
 import { BiCategoryAlt } from "react-icons/bi";
 import { FaUserAlt, FaImage, FaGlobe } from "react-icons/fa";
 import { NavLink, useHistory } from "react-router-dom";
@@ -38,7 +39,10 @@ const AdminSidebar = (props) => {
                             <NavLink activeClassName={classes.active} to="/website"><FaGlobe /> Website</NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName={classes.active} to="/section"><AiFillCodepenSquare />Section</NavLink>
+                            <NavLink activeClassName={classes.active} to="/section"><AiFillCodepenSquare /> Section</NavLink>
+                        </li>
+                        <li>
+                            <NavLink activeClassName={classes.active} to="/blog"><MdContentPaste /> Blog</NavLink>
                         </li>
                         {
                             auth.isLoggedIn &&

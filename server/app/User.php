@@ -90,20 +90,37 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasOne(Website::class);
     }
 
+    /**
+     * Get the website exists or not
+     * 
+     */
+
     public function hasWebsite()
     {
         return $this->website()->exists();
     }
+
+    /**
+     * Get the categories associated with the user
+     */
 
     public function blogCategories()
     {
         return $this->hasMany(BlogCategory::class)->with(["blogPosts"]);
     }
 
+    /**
+     * Get the posts associated with the user
+     */
+
     public function blogPosts()
     {
         return $this->hasMany(BlogPost::class)->with(["blogComments"]);
     }
+
+    /**
+     * Get the comments associated with the user
+     */
 
     public function blogComments()
     {

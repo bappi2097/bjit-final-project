@@ -24,6 +24,8 @@ import EditUser from "../User/Edit";
 import Website from "../Website";
 import AddWebsite from "../Website/Add";
 import EditWebsite from "../Website/Edit";
+import Blog from "../Blog";
+import EditPost from "../Blog/Edit";
 
 const Admin = (props) => {
     return (
@@ -86,6 +88,13 @@ const Admin = (props) => {
                             </Route>
                             <Route path="/user/edit/:id">
                                 <EditUser />
+                            </Route>
+
+                            <Route path="/blog" exact>
+                                <Blog />
+                            </Route>
+                            <Route path="/blog/edit/:id">
+                                <EditPost />
                             </Route>
                         </div>
                     </div>

@@ -31,16 +31,27 @@ class BlogPost extends Model
             ]
         ];
     }
+    /**
+     * Get the user associated with the blog
+     */
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the category associated with the blog
+     */
+
     public function blogCategory()
     {
         return $this->belongsTo(BlogCategory::class);
     }
+
+    /**
+     * Get the comments associated with the blog
+     */
 
     public function blogComments()
     {

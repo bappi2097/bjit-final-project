@@ -32,10 +32,17 @@ class BlogCategory extends Model
         ];
     }
 
+    /**
+     * Get the user associated with the category
+     */
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+    /**
+     * Get the blogs associated with the category
+     */
     public function blogPosts()
     {
         return $this->hasMany(BlogPost::class);

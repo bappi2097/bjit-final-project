@@ -8,15 +8,19 @@ import Loop from "../../../components/UI/Loop";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
-import { get } from "../../../services/api";
+import { get, post } from "../../../services/api";
 import { toast } from "react-toastify";
 import ReactHtmlParser from 'react-html-parser';
+import swal from "sweetalert";
+import { MdDeleteForever } from "react-icons/md";
 
 const NewsFeed = () => {
     const [posts, setPosts] = useState([]);
     const [nextUrl, setnextUrl] = useState([]);
+    const [reload, setReload] = useState(0);
     useEffect(() => {
         get("/user/blog-post/user-post").then(response => {
+            console.log(response);
             setPosts(response.data.data.data);
             setnextUrl(response.data.data.next_page_url);
         }).catch(errors => {
@@ -25,7 +29,7 @@ const NewsFeed = () => {
                 toast.error(errors.data.message);
             }
         });
-    }, []);
+    }, [reload]);
     const loadMore = () => {
         get(nextUrl).then(response => {
             setnextUrl(response.data.data.next_page_url);
@@ -33,6 +37,34 @@ const NewsFeed = () => {
         }).catch(errors => {
             console.log(errors);
         });
+    }
+    const deleteHandler = (event, id) => {
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    const formData = new FormData();
+                    formData.append("_method", "DELETE");
+                    post("/user/blog-post/" + id, formData).then(response => {
+                        swal(response.data.message, {
+                            icon: "success",
+                        });
+                        setReload(Math.random());
+                    }).catch(errors => {
+                        toast.error(errors.data.message);
+                    });
+                } else {
+                    swal("Something went wrong!");
+                }
+            }).catch(errors => {
+                toast.error(errors.data.message);
+            });
     }
     return (
         <Fragment>
@@ -44,10 +76,13 @@ const NewsFeed = () => {
                 <div>
                     {posts.length > 0 && posts.map((value, index) => {
                         return (
-                            <Card className={classes.newsfeed__card}>
+                            <Card key={"blognewsfeed" + index} className={classes.newsfeed__card}>
                                 <div className={classes.card__header}>
                                     <h3>{value.title}</h3>
                                     <Link to={`/blog/post/edit/${value.id}`} className={`${classes.btn} ${classes.btn_primary}`}>Edit</Link>
+                                    <form onSubmit={(e) => { deleteHandler(e, value.id) }}>
+                                        <button className={`${classes.btn} ${classes.btn_danger}`}><MdDeleteForever /></button>
+                                    </form>
                                 </div>
                                 {value.image && (
                                     <img src={process.env.REACT_APP_IMAGE_URL + value.image} alt={value.title} />
@@ -57,8 +92,8 @@ const NewsFeed = () => {
                                 </p>
                                 <br />
                                 <div className={`${classes.row}`}>
-                                    Tags:&nbsp;&nbsp;&nbsp;
-                                    <span className={`${classes.badge} ${classes.badge_light}`}>Tag1</span>
+                                    Category:&nbsp;&nbsp;&nbsp;
+                                    <span className={`${classes.badge} ${classes.badge_light}`}>{value.blog_category.name}</span>
                                 </div>
                                 <div className={`${classes.row} ${classes.justify_content_between}`}>
                                     <Link to={`/blog/single/${value.slug}`} className={`${classes.btn} ${classes.btn_primary}`}>More Details</Link>

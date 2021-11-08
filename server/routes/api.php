@@ -67,15 +67,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get("/{section}", "Admin\SectionController@show")->name("show");
         });
 
-        Route::prefix('page')->name("page.")->group(function () {
-            Route::get("/", "Admin\PageController@index")->name("index");
-            Route::post("/", "Admin\PageController@store")->name("store");
-            Route::get("/{page}", "Admin\PageController@show")->name("show");
-            Route::put("/{page}", "Admin\PageController@update")->name("update");
-            Route::delete("/{page}", "Admin\PageController@destroy")->name("destroy");
-        });
-
-
         Route::prefix('blog-category')->name("blog-category.")->group(function () {
             Route::get("/", "Api\BlogCategoryController@index")->name("index");
             Route::post("/", "Api\BlogCategoryController@store")->name("store");
@@ -165,20 +156,11 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::prefix('blog-post')->name("blog-post.")->group(function () {
-            Route::get("/", "Api\BlogPostController@index")->name("index");
-            Route::post("/", "Api\BlogPostController@store")->name("store");
-            Route::get("/{blogPost}", "Api\BlogPostController@show")->name("show");
-            Route::put("/{blogPost}", "Api\BlogPostController@update")->name("update");
-            Route::delete("/{blogPost}", "Api\BlogPostController@destroy")->name("destroy");
-        });
-
-
-        Route::prefix('blog-comment')->name("blog-comment.")->group(function () {
-            Route::get("/", "Api\BlogCommentController@index")->name("index");
-            Route::post("/", "Api\BlogCommentController@store")->name("store");
-            Route::get("/{blogComment}", "Api\BlogCommentController@show")->name("show");
-            Route::put("/{blogComment}", "Api\BlogCommentController@update")->name("update");
-            Route::delete("/{blogComment}", "Api\BlogCommentController@destroy")->name("destroy");
+            Route::get("/", "Admin\BlogPostController@index")->name("index");
+            Route::post("/", "Admin\BlogPostController@store")->name("store");
+            Route::get("/{blogPost}", "Admin\BlogPostController@show")->name("show");
+            Route::put("/{blogPost}", "Admin\BlogPostController@update")->name("update");
+            Route::delete("/{blogPost}", "Admin\BlogPostController@destroy")->name("destroy");
         });
     });
 });
